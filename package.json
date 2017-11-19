@@ -1,14 +1,14 @@
 {
-  "name": "classproject",
+  "name": "dockersetup",
   "version": "1.0.0",
-  "description": "Class Project",
+  "description": "This is a basic setup for node.js, express, and mysql using docker",
   "author": "Scott Shaper",
   "license": "ISC",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-  	"body-parser": "^1.14.1",
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.12.1",
