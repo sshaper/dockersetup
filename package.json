@@ -4,6 +4,14 @@
   "description": "This is a basic setup for node.js, express, and mysql using docker",
   "author": "Scott Shaper",
   "license": "ISC",
+  "//": [
+    "The nodemon allows the server to restart when a server file is updated.",
+    "I used the nodemonConfig to ignore certain folders because their contents are",
+    "front end files that do not require a sever reload"
+  ],
+  "nodemonConfig": {
+    "ignore": ["public/*", "views/*"]
+  },
   "scripts": {
     "start": "node index.js"
   },

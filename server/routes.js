@@ -7,8 +7,14 @@ var express = require('express'),
 	
 
 module.exports = function(app){
-	/* USER ROUTES */
+	/* GET STATEMENTS */
 	router.get('/', home.index);
+	router.get('/addnameform', home.addnameform);
+	router.get('/updatedeletelist', home.updatedeletelist);
+	
+	/* POST STATEMENTS */
+	router.post('/addname', home.addname);
+	router.post('/updatedeletename', home.updatedeletename);
 
 	app.use(router);
 }
