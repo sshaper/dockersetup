@@ -29,7 +29,10 @@ user.addName = function(){
     /* STRINGIFY THE DATA SO I CAN SEND IT TO THE SERVER. */
     data = JSON.stringify(data);
     Util.sendRequest('/addname', function(res){
-        user.msgoutput(res.response); 
+        user.msgoutput(res.response);
+        /* CLEAR INPUT FIELDS */
+        fname[0].value = "";
+        lname[0].value = ""; 
     }, data);
 }
 
@@ -54,8 +57,10 @@ user.updatedelete = function(e){
     }
     
     Util.sendRequest('/updatedeletename', function(res){
-        /* THIS DELETES THE TABLE ROW ON THE FRONT END, BUT WHEN THE PAGE RELOADS THE TABLE ROW WILL BE DELETED FROM THE DATABASE */
-        Util.getEl('.table')[0].deleteRow(rowid);
+        if(res.response === "deleted"){
+            /* THIS DELETES THE TABLE ROW ON THE FRONT END, BUT WHEN THE PAGE RELOADS THE TABLE ROW WILL BE DELETED FROM THE DATABASE */
+            Util.getEl('.table')[0].deleteRow(rowid);
+        }
         user.msgoutput(res.response); 
         
     }, data);
