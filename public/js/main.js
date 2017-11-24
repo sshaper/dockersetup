@@ -1,6 +1,7 @@
 "use strict";
 var user = {}
 
+/* CHECKS TO SEE IF THE ELEMENTS EXIST AND IF SO ADDS LISTENERS TO THEM. */
 user.init = function(){
     if(Util.getEl('#addNameBtn').length != 0){
         Util.addLis(Util.getEl('#addNameBtn')[0], 'click', user.addName);
@@ -8,6 +9,23 @@ user.init = function(){
     if(Util.getEl('#updatedeletetable').length != 0){
         Util.addLis(Util.getEl('#updatedeletetable')[0], 'click', user.updatedelete);
     }
+    if(Util.getEl('#loginBtn').length != 0){
+        Util.addLis(Util.getEl('#loginBtn')[0], 'click', user.login);
+    }
+}
+
+user.login = function(){
+    var data = {}
+    data.username = Util.getEl('#username')[0].value;
+    data.password = Util.getEl('#password')[0].value;
+
+    data = JSON.stringify(data);
+
+    Util.sendRequest('login', function(res){
+        user.msgoutput(res.response);
+    }, data);
+
+
 }
 
 user.addName = function(){
@@ -64,8 +82,6 @@ user.updatedelete = function(e){
         user.msgoutput(res.response); 
         
     }, data);
-
-    
 }
 
 user.msgoutput = function(response){
@@ -74,6 +90,9 @@ user.msgoutput = function(response){
         case "addname" : Util.getEl('#msg')[0].innerHTML = "The name has been added"; break;
         case "deleted" : Util.getEl('#msg')[0].innerHTML = "The name has been deleted"; break;
         case "updated" : Util.getEl('#msg')[0].innerHTML = "The name has been updated"; break;
+        case "loginError" : Util.getEl('#msg')[0].innerHTML = "There has been an error logging in"; break;
+        case "loginNoInfo" : Util.getEl('#msg')[0].innerHTML = "There are no records found matching your entry";break;
+        case "loginSuccess" : window.location = "/home";break;
         default : Util.getEl('#msg')[0].innerHTML = "There was an error could not process request"; break;
     }
 }

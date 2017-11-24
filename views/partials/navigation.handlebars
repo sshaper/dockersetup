@@ -1,7 +1,10 @@
-<nav>
-	<ul>
-		<li><a href="/">Home</a></li>
-		<li><a href="/addnameform">Add Name</a></li>
-		<li><a href="/updatedeletelist">Update/Delete Name</a></li>
-	</ul>
-</nav>
+{{#if nav}}
+	<nav>
+		<ul>
+			<li><a href="/home">Home</a></li>
+			<li><a href="/addnameform">Add Name</a></li>
+			<li><a href="/updatedeletelist">Update/Delete Name</a></li>
+			<li><a href="/logout">Logout</a></li>
+		</ul>
+	</nav>
+{{/if}}

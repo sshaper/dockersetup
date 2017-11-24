@@ -8,13 +8,16 @@ var express = require('express'),
 
 module.exports = function(app){
 	/* GET STATEMENTS */
-	router.get('/', home.index);
+	router.get('/',home.index);
+	router.get('/home',home.home)
 	router.get('/addnameform', home.addnameform);
 	router.get('/updatedeletelist', home.updatedeletelist);
+	router.get('/logout', home.logout);
 	
 	/* POST STATEMENTS */
 	router.post('/addname', home.addname);
 	router.post('/updatedeletename', home.updatedeletename);
-
+	router.post('/login', home.login);
+	
 	app.use(router);
 }

@@ -9,12 +9,12 @@ THIS IS DONE SO WE DO NOT HAVE TO WRITE A BUNCH OF CODE IN OUR INDEX FILE. */
 app = config(app);
 
 /* SET THE PORT */
-app.set('port',process.env.PORT || 3000);
+app.set('port',process.env.PORT || 3500);
 
 /* MAKE THE VIEWS DIRECTORY SO WE CAN SERVE UP THE FILES WITHIN THAT DIRECTORY */
 app.set('views', __dirname + '/views');
 
-/* LISTEN ON PORT 3000 */
+/* LISTEN ON PORT 3500 */
 app.listen(app.get('port'),function(){
 	console.log('Server up..');
 });
