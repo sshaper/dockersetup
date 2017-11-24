@@ -8,10 +8,8 @@ This was tested on  Ubuntu 16.04 in Digital Ocean.
 What this procedure does is remove the image and containers that were created with your intial setup.
 
 1. **Shutdown all running contianers**: "docker stop $(docker ps -q)"
-2. **Remove all containers**: "sudo docker rm $(docker ps -a -q)"
-..1 **Remove related containers only**: "sudo docker rm dockersetup\_mysql\_1 dockersetup\_web_1
-3. **Remove all images**: "sudo docker rmi $(docker images -q)"
-..1 **Remove related containers only**: "sudo docker rmi dockersetup"
+2. **Remove all containers**: "sudo docker rm $(docker ps -a -q)", OR **Remove related containers only**: "sudo docker rm dockersetup\_mysql\_1 dockersetup\_web_1
+3. **Remove all images**: "sudo docker rmi $(docker images -q)", OR **Remove related containers only**: "sudo docker rmi dockersetup"
 4. **Remove all files within mysql\_storage**: "sudo rm -R *" (must be inside the mysql_storage folder)
 
 ## INTIAL START UP PROCEDURE USING DOCKER
