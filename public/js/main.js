@@ -58,11 +58,30 @@ user.updatedelete = function(e){
     var id, data = {}, rowid;
     /* I ADD THE FLAG PROPERTY TO THE DATA OBJECT SO WHEN THE SCRIPT GETS SENT TO THE SERVER IT KNOWS HOW TO HANDLE THE REQUEST. */
     if(e.target.value === "Delete"){
-        data.id = e.target.id.substring(1);
-        data.flag = "delete";
-        rowid = e.target.parentNode.parentNode.rowIndex;
- 
-        data = JSON.stringify(data);
+        Util.msgBox({
+            heading: {text: 'You are about to delete this entery', background: 'red', color: 'white'},
+            body: {text: 'You are about to permentally delete this record.  If this is what you want to do click "OK", otherwise click "Cancel" '},
+            leftbtn: {text: 'OK', background: 'green', display: 'block'},
+            rightbtn: {text: 'Cancel', background: 'red', display: 'block'}
+        });
+
+        Util.addLis(Util.getEl('#leftbtn')[0], 'click', function(){
+            data.id = e.target.id.substring(1);
+            data.flag = "delete";
+            rowid = e.target.parentNode.parentNode.rowIndex;
+            data = JSON.stringify(data);
+            Util.sendRequest('/updatedeletename', function(res){
+                Util.getEl('.table')[0].deleteRow(rowid);
+                user.msgoutput(res.response);
+                Util.closeMsgBox(); 
+            }, data);
+         });
+        
+        Util.addLis(Util.getEl('#rightbtn')[0], 'click', function(){
+            Util.closeMsgBox();
+            return;
+        });
+         
     }
     else if(e.target.value === "Update"){
         data.id = e.target.id.substring(1);
@@ -72,16 +91,11 @@ user.updatedelete = function(e){
         data.lname = e.target.parentNode.previousSibling.firstChild.value;
 
         data = JSON.stringify(data);
+        Util.sendRequest('/updatedeletename', function(res){
+            user.msgoutput(res.response); 
+         }, data);
     }
-    
-    Util.sendRequest('/updatedeletename', function(res){
-        if(res.response === "deleted"){
-            /* THIS DELETES THE TABLE ROW ON THE FRONT END, BUT WHEN THE PAGE RELOADS THE TABLE ROW WILL BE DELETED FROM THE DATABASE */
-            Util.getEl('.table')[0].deleteRow(rowid);
-        }
-        user.msgoutput(res.response); 
-        
-    }, data);
+
 }
 
 user.msgoutput = function(response){
