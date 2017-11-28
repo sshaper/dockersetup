@@ -6,6 +6,7 @@ var db = require('../../server/db'),
     mysql = require('mysql'),
 	/* I NEED TO CREATE THE CONNECTION HERE (INSTEAD OF IN MODULE EXPORTS) OTHERWISE I WILL CREATE TOO MANY CONNECTIONS WHEN TOO MANY CONCURRENT USERS ACCESS THE DATABASE */
 	pool = db.connect(),
+	/* BCRYPT IS USED TO HASH PASSWORDS AND CHECK HASHED PASSWORDS AGAINST THE USER ENTERED PASSWORD */
 	bcrypt = require('bcrypt');
 
 module.exports = {
@@ -13,8 +14,10 @@ module.exports = {
 		res.render('user/login',{title: 'Login', heading: 'Login', nav: false});
 	},
 
+	/* THE LOGIN PAGE FIRST ATTEMPTS TO GET THE USERNAME AND PASSWORD FROM THE DATABASE BASED UPON THE USERNAME.  IF FOUND THE PASSWORD IS CHECKED AGAINST THE USER PASSWORD.  IF IT CHECKS OUT THEN A SESSION IS CREATED AND A "SUCCESS" MESSAGE IS SENT BACK TO THE BROWSER. THE USER IS THEN REDIRECTED TO THE HOME PAGE. OTHERWISE THE USER IS STUCK AT THE LOGIN PAGE. */
 	login: function(req, res){
 		data = JSON.parse(req.body.data);
+		/* THE ? IS USED AS A PLACEHOLDER FOR THE VALUES IN THE INSERT ARRAY.*/
 		sql = "SELECT username, password FROM admin WHERE username = ?";
 		inserts = [data.username];
 		sql = mysql.format(sql, inserts);
@@ -24,6 +27,7 @@ module.exports = {
 				res.send('loginNoInfo');
 			}
 			else {
+				/* THIS IS WHERE BCRYPT COMPARES THE USER PASSWORD WITH THE ENCRYPTED PASSWORD */
 				bcrypt.compare(data.password, result[0].password, function(err, result) {
 					if(err){
 						res.send('loginError');
@@ -41,7 +45,7 @@ module.exports = {
 	
 	/*THIS PROVIDES THE CONTENT FOR THE HOME PAGE*/
     home: function(req, res){
-		/* IF A SESSION IS NOT CREATED THEN THE WILL BE DIRECTED TO THE LOGIN PAGE. */
+		/* IF A SESSION IS NOT CREATED THEN THE USER WILL BE DIRECTED TO THE LOGIN PAGE. */
 		if(req.session.access !== "accessGranted"){
 			res.render('user/login',{title: 'Login', heading: 'Login', nav: false});
 		}
@@ -52,7 +56,8 @@ module.exports = {
 					console.log(err);
 				}
 				else {
-					/* I HAVE TO USE ?? FOR THE INDENTIFIERS AND ? FOR THE VALUES */
+				
+					/* USE DOUBLE ?? FOR STRING VALUES LIKE 'NAME' AND ? FOR NON STRING VALUES LIKE DATA.FIRSTNAME */
 					var sql = "SELECT firstname, lastname FROM ??";
 					var inserts = ['name'];
 					/* THIS BINDS THE ARRAY VALUES FROM INSERTS TO THE SQL STATEMENT THE PURPOSE OF BINDING IS TO PREVENT SQL INJECTIONS. NOTE: IN THIS CASE BECAUSE NONE OF THE VALUES WERE BEING ENTERED BY THE USER I DID NOT HAVE TO BIND THE SQL STATEMENT BUT I WANTED TO SHOW AND EXAMPLE OF IT. */

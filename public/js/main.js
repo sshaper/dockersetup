@@ -21,7 +21,7 @@ user.login = function(){
 
     data = JSON.stringify(data);
 
-    Util.sendRequest('login', function(res){
+    Util.sendRequest('/login', function(res){
         user.msgoutput(res.response);
     }, data);
 
@@ -92,6 +92,7 @@ user.updatedelete = function(e){
 
         data = JSON.stringify(data);
         Util.sendRequest('/updatedeletename', function(res){
+            console.log(res.response);
             user.msgoutput(res.response); 
          }, data);
     }
