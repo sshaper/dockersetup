@@ -16,5 +16,4 @@ services:
       MYSQL_ROOT_PASSWORD: "password"
     volumes:
       - ./mysql_storage:/var/lib/mysql
-
     
