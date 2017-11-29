@@ -12,7 +12,7 @@ What this procedure does is remove the image and containers that were created wi
 3. **Remove all images**: "sudo docker rmi $(docker images -q)", OR **Remove related containers only**: "sudo docker rmi dockersetup"
 4. **Remove all files within mysql\_storage**: "sudo rm -R *" (must be inside the mysql_storage folder)
 
-## INTIAL START UP PROCEDURE USING DOCKER
+## INITIAL START UP PROCEDURE USING DOCKER
 All commands are in double quotes.  Do not include the double quotes
 
 1. **Upload the files**: Upload all the files to a folder in your Digital Ocean or Ubuntu 16.04 vm with docker installed.
