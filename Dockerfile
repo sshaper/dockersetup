@@ -17,6 +17,5 @@ ENV NODE_PATH /dist/node_modules
 # bundle source
 COPY . /usr/src/app
 
-EXPOSE 3000
 CMD ["npm", "start"]
 CMD ["nodemon", "-L", "/usr/src/app"]

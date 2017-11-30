@@ -16,16 +16,13 @@ What this procedure does is remove the image and containers that were created wi
 All commands are in double quotes.  Do not include the double quotes
 
 1. **Upload the files**: Upload all the files to a folder in your Digital Ocean or Ubuntu 16.04 vm with docker installed.
-2. **Create the image**: "docker build -t nodesqlbuildv1.0 ." (you must include the "." at the end).  May get some notices and warnings that is fine.
+2. **Create the image**: "docker build -t dockersetup ." (you must include the "." at the end).  May get some notices and warnings that is fine.
 3. **Create containers**: "docker-compose up -d" must be in folder where docker-compose.yml file is
 4. **Get the instance id of the mysql instance**:  Enter "docker ps" then look for the one that has the image name of 'mysql'.
 5. **"Get the IP address for MySQL instance"**: "docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' INSTANCE ID OR NAME".  You got the INSTANCE ID from the previous instruction.
 6. **Change/check IP address**:  Change or check the ip address on the model/db.js file (NOTE: The IP address may already be the same, if so leave it.)
-7. **Stop all docker containers**: "docker stop $(docker ps -q)"
-8. **Reset Permissions on mysql\_storage files**: "sudo chmod -R 777 mysql_storage" (enter this code from the parent folder)
-9. **Recreate containers**: "docker-compose up -d"
-10. **Add sql file to create database and tables**:  "docker exec -i 'mysql instance name or id for mysql instance'  mysql -uroot -ppassword < sql/dockersetup.sql"  You will get a warning that reads  'mysql: [Warning] Using a password on the command line interface can be insecure.'  That is fine for our circumstance.
-11. **Check Web Application**: Open a web browser, go to your ip address using port number 3500 (example: http://45.55.170.248:3500/), and click enter the website should be displayed.  If it does not work follow the reset procedure and try again.
+7. **Add sql file to create database and tables**:  "docker exec -i 'mysql instance name or id for mysql instance'  mysql -uroot -ppassword < sql/dockersetup.sql"  You will get a warning that reads  'mysql: [Warning] Using a password on the command line interface can be insecure.'  That is fine for our circumstance.
+8. **Check Web Application**: Open a web browser, go to your ip address using port number 3500 (example: http://45.55.170.248:3500/), and click enter the website should be displayed.  If it does not work follow the reset procedure and try again.
 
 ## IF YOU DON'T WANT TO USE DOCKER
 NOTE: This is a standard procedure that should work fine.  That being said I have not personally tested it as I recommend using Docker.
