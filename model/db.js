@@ -2,7 +2,7 @@
 exports.db = function(){
     var conn = {
             connectionLimit: 10,
-            host: '172.23.0.2',
+            host: '172.19.0.2',
             user: 'root',
             password: 'password',
             database: 'dockersetup'
