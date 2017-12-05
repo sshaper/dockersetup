@@ -1,7 +1,7 @@
 # DOCKERSETUP INSTRUCTIONS
 The following are the instructions for the docker setup.  What this will do is set up a Node.js web application with a MySQL database within a Docker container.
 
-This was tested on  Ubuntu 16.04 in Digital Ocean.
+This was tested on Ubuntu 16.04. The vm was created in Digital Ocean using the one click app that installs Docker and Ubuntu
 
 ## THE FOLLOWING IS A RESET PROCEDURE INCASE THE INSTALLATION FAILS USING DOCKER
 
@@ -10,7 +10,8 @@ What this procedure does is remove the image and containers that were created wi
 1. **Shutdown all running contianers**: "docker stop $(docker ps -q)"
 2. **Remove all containers**: "sudo docker rm $(docker ps -a -q)", OR **Remove related containers only**: "sudo docker rm dockersetup\_mysql\_1 dockersetup\_web_1
 3. **Remove all images**: "sudo docker rmi $(docker images -q)", OR **Remove related containers only**: "sudo docker rmi dockersetup"
-4. **Remove all files within mysql\_storage**: "sudo rm -R *" (must be inside the mysql_storage folder)
+4. **Remove all volumes** "sudo docker volume prune" or to just remove that volume "sudo docker volume rm dockersetup_data-volume".
+
 
 ## INITIAL START UP PROCEDURE USING DOCKER
 All commands are in double quotes.  Do not include the double quotes

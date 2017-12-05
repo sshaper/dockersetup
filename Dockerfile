@@ -1,21 +1,23 @@
+#USE NODE VERSION 9.1.0
 FROM node:9.1.0
 
-# create app directory
+#CREATE AN APP DIRECTORY AS A WORKING DIRECTORY
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-#install dependencies
+#INSTALL DEPENDENCIES FROM PACKAGE.JSON FILE AND NODEMON SO THE SERVER WILL RESTART ON UPLOADED SERVER RELATED FILES SO YOU DON'T HAVE TO KEEP RESTARTING THE SERVER.
 COPY package.json /usr/src/app
 RUN npm install
 RUN npm install --global nodemon
 
-#this was done to make sure are saved correctly in docker
+#THIS WAS DONE TO MAKE SURE THE MODULES ARE CORRECTLY SAVED IN DOCKER
 RUN mkdir -p /dist/node_modules
 RUN cp -r node_modules/* /dist/node_modules/
 ENV NODE_PATH /dist/node_modules
 
-# bundle source
+#COPY ALL FILES TO USR/SRC/APP WHICH IS ON THE DOCKER CONTAINER
 COPY . /usr/src/app
 
+#START THE SERVER PAGE (INDEX.JS FOUND ON THE PACKAGE.JSON FILE) AND START NODEMON
 CMD ["npm", "start"]
 CMD ["nodemon", "-L", "/usr/src/app"]
