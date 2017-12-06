@@ -1,11 +1,11 @@
 //import read from 'fs';
 
 /* I NEED TO REQUIRE THE DB FILE FOR MY DATABASE CONNECTION */
-var db = require('../../server/db'),
+var conn = require('../../modules/conn'),
 	runsql = require('../../modules/runsql'),
     mysql = require('mysql'),
 	/* I NEED TO CREATE THE CONNECTION HERE (INSTEAD OF IN MODULE EXPORTS) OTHERWISE I WILL CREATE TOO MANY CONNECTIONS WHEN TOO MANY CONCURRENT USERS ACCESS THE DATABASE */
-	pool = db.connect(),
+	pool = conn.connect(),
 	/* BCRYPT IS USED TO HASH PASSWORDS AND CHECK HASHED PASSWORDS AGAINST THE USER ENTERED PASSWORD */
 	bcrypt = require('bcrypt');
 
